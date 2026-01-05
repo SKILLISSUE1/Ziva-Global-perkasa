@@ -6,28 +6,89 @@
 
 body {
   background-color: #ddd;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
 }
 
-/* Navbar (kode kamu) */
+/* Animasi masuk */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Navbar */
 nav {
-  background-color: rgba(0, 0, 0, 0.068);
+  background-color: rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 10px;
+  padding: 10px 5%;
   display: flex;
-  gap: 15px;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  z-index: 1000; /* memastikan navbar berada di atas konten lainnya */
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+nav.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 8px 5%;
 }
 
 nav img {
-  padding: 5px;
   height: 50px;
   filter: drop-shadow(0px 0px 2px #000000);
+  animation: fadeIn 0.8s ease-out;
+  transition: transform 0.3s ease;
+}
+
+nav img:hover {
+  transform: scale(1.05);
 }
 
 nav ul {
@@ -40,63 +101,98 @@ nav ul {
 nav ul li a {
   text-decoration: none;
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-weight: 550;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #009dff;
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
 }
 
 nav ul li a:hover {
   color: #009dff;
-  transition: 0.3s;
 }
 
-nav.scrolled ul li:nth-child(1) a,
-nav.scrolled ul li:nth-child(2) a,
-nav.scrolled ul li:nth-child(3) a {
-  color: black;
-  transition: 1s;
+nav.scrolled ul li a {
+  color: #333;
 }
 
-nav.scrolled {
-  background-color: white;
-  transition: 1s;
-}
-
+/* PERUBAHAN: Tombol Hubungi Kami tanpa garis underline */
 .navButton {
-  background-color: #198fd9;
-  color: white;
-  padding: 15px;
+  background: linear-gradient(135deg, #198fd9, #156fa0);
+  color: white !important;
+  padding: 12px 25px;
+  border-radius: 50px;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
 }
 
+/* PERUBAHAN: Hapus garis underline pada tombol Hubungi Kami */
+.navButton::after {
+  display: none !important;
+}
+
+/* PERUBAHAN: Hover tombol tidak ada efek khusus */
 .navButton:hover {
-  background-color: black;
-  color: #198fd9;
-  transition: 0.3s;
+  background: linear-gradient(135deg, #198fd9, #156fa0);
+  transform: none;
+  box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+  color: white !important;
 }
 
-/* =========================
-   TAMBAHAN: HAMBURGER (1 MENU SAJA, TIDAK DUPLIKAT)
-   ========================= */
+/* PERUBAHAN: Pastikan tidak ada garis saat hover */
+.navButton:hover::after {
+  width: 0 !important;
+}
 
+nav.scrolled .navButton {
+  color: white !important;
+}
+
+/* Hamburger Menu */
 .hamburger {
-  display: none; /* desktop: hidden */
+  display: none;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 10px;
+  z-index: 1001;
 }
 
 .hamburger span {
   display: block;
   width: 26px;
   height: 3px;
-  background: #000;
+  background: white;
   margin: 5px 0;
-  transition: 0.25s;
+  transition: all 0.3s ease;
+  border-radius: 3px;
+}
+
+nav.scrolled .hamburger span {
+  background: #333;
 }
 
 .hamburger.active span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
+  background: #333;
 }
 
 .hamburger.active span:nth-child(2) {
@@ -105,273 +201,616 @@ nav.scrolled {
 
 .hamburger.active span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
+  background: #333;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  nav {
-    justify-content: space-between; /* logo kiri, hamburger kanan */
-    padding: 10px 14px;
-    background-color: white;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  /* UL yang sama dipakai jadi dropdown */
-  nav ul {
-    display: none; /* default: hidden */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 12px 14px;
-    border-top: 1px solid #e5e5e5;
-    flex-direction: column;
-    gap: 12px;
-    align-items: stretch; /* biar link full lebar */
-  }
-
-  nav ul.active {
-    display: flex;
-  }
-
-  nav ul li a {
-    display: block;
-    padding: 10px;
-  }
-
-  /* tombol hubungi kami biar rapih di mobile */
-  nav ul li a.navButton {
-    text-align: center;
-    padding: 12px;
-  }
-  .services-section h2 {
-    font-size: 28px;
-  }
-
-  .service-card h3 {
-    font-size: 22px;
-  }
-
-  .service-card p {
-    font-size: 14px;
-  }
-}
-
-/* Beranda */
+/* Beranda Section */
 .beranda {
-  background-image: url("img/beranda.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
   position: relative;
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 0px 400px 14px rgba(0, 0, 0, 1) inset;
+  animation: fadeIn 1s ease-out;
 }
 
 .container1 {
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: xx-large;
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+  animation: fadeInUp 1s ease-out 0.3s both;
 }
 
-/* tentang kami */
-.tentang {
-  font-family: Arial, Helvetica, sans-serif;
+.container1 h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(45deg, #fff, #009dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  height: 35vh;
+/* Tentang Kami Section */
+.tentang {
+  font-family: "Segoe UI", sans-serif;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 550px;
+  padding: 80px 5%;
+  min-height: 50vh;
+  animation: fadeInUp 1s ease-out;
+}
+
+.container2 {
+  max-width: 1200px;
+  width: 100%;
+  animation: slideInLeft 1s ease-out;
+}
+
+.container2 h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #198fd9;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.container2 h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #198fd9, #009dff);
+  border-radius: 2px;
 }
 
 .container2 p {
-  margin-top: 20px;
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  line-height: 1.8;
+  color: #555;
   text-align: justify;
+  animation: slideInRight 1s ease-out 0.3s both;
 }
 
-/* layanan kami */
+/* Layanan Kami Section */
 .services-section {
-  padding: 60px 20px;
+  padding: 100px 5%;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  animation: fadeIn 1s ease-out;
 }
 
 .services-section h2 {
   text-align: center;
-  font-size: 36px;
+  font-size: clamp(2rem, 4vw, 3rem);
   color: #333;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   font-weight: 600;
+  position: relative;
+  animation: fadeInUp 1s ease-out;
+}
+
+.services-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #198fd9, #009dff);
+  border-radius: 2px;
 }
 
 .services-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
   justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Kartu Layanan */
 .service-card {
   background-color: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
   overflow: hidden;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.service-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.service-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #198fd9, #009dff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  transition: transform 0.4s ease;
+}
+
+.service-card:hover img {
+  transform: scale(1.05);
 }
 
 .service-card h3 {
-  font-size: 26px;
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
   margin-bottom: 20px;
   color: #198fd9;
   font-weight: 600;
 }
 
 .service-card p {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 20px;
+  font-size: clamp(0.95rem, 1.5vw, 1rem);
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.6;
 }
 
 .service-card .btn {
-  background-color: #198fd9;
+  background: linear-gradient(135deg, #198fd9, #156fa0);
   color: white;
-  padding: 12px 25px;
+  padding: 12px 30px;
   text-decoration: none;
   border-radius: 50px;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
 }
 
 .service-card .btn:hover {
-  background-color: #156fa0;
+  background: linear-gradient(135deg, #156fa0, #198fd9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(25, 143, 217, 0.4);
 }
 
-/* Gambar atau Ikon untuk Layanan */
-.service-card img {
-  width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-/* Responsif untuk layar kecil */
-@media (max-width: 768px) {
-  .services-section h2 {
-    font-size: 28px;
-  }
-
-  .service-card h3 {
-    font-size: 22px;
-  }
-
-  .service-card p {
-    font-size: 14px;
-  }
-}
-
-/* Footer */
+/* Footer - PERUBAHAN: Kontak Kami dan Ikuti Kami benar-benar sejajar */
 footer {
-  background-color: #333; /* Warna latar belakang footer */
+  background: linear-gradient(135deg, #2c3e50, #34495e);
   color: white;
-  padding: 20px 0;
-  font-family: Arial, sans-serif;
+  padding: 60px 5% 30px;
+  font-family: "Segoe UI", sans-serif;
+  animation: fadeInUp 1s ease-out;
 }
 
-.footer-container {
+.footer-main-content {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Mengatur elemen tetap rata atas */
-  padding: 0 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 60px;
+  margin-bottom: 40px;
 }
 
-.footer-info, .footer-social {
-  display: flex;
-  flex-direction: column; /* Mengatur elemen vertikal */
-  justify-content: flex-start;
+.footer-info,
+.footer-social {
+  animation: fadeInUp 0.8s ease-out;
+  flex: 1;
+  min-width: 300px;
 }
 
-.footer-info p, .footer-social p {
-  margin: 5px 0; /* Mengurangi margin atas-bawah untuk mengurangi gap */
-}
-
-.footer-info a, .footer-social a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-info a:hover, .footer-social a:hover {
-  color: #198fd9; /* Warna hover untuk link */
+/* Membuat kedua bagian sejajar secara horizontal */
+.footer-info {
+  flex: 1;
 }
 
 .footer-social {
-  text-align: left;
-  margin-left: 20px; /* Memberikan jarak antara "Ikuti Kami" dan konten lain */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-info p,
+.footer-social p {
+  margin: 12px 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.footer-info p strong,
+.footer-social p strong {
+  color: #009dff;
+  font-size: 18px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.footer-info a {
+  color: #ddd;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-info a:hover {
+  color: #009dff;
+  transform: translateX(5px);
+}
+
+/* PERUBAHAN: Container untuk ikuti kami */
+.footer-social-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Judul "Ikuti Kami" */
+.footer-social strong {
+  display: block;
+  margin-bottom: 15px;
+}
+
+/* Link Facebook dan Instagram sebagai baris terpisah */
+.footer-social a {
+  color: #ddd;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+/* Facebook - baris ke-2 */
+.footer-social a.facebook-link:hover {
+  color: #1877f2; /* Biru Facebook */
+  transform: translateX(5px);
+}
+
+/* Instagram - baris ke-3 */
+.footer-social a.instagram-link:hover {
+  color: #e1306c; /* Pink Instagram */
+  transform: translateX(5px);
 }
 
 .social-icon {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  margin: 5px 0;
-  color: white;
-  font-size: 16px;
+  gap: 10px;
+  padding: 8px 0;
 }
 
 .social-icon i {
-  margin-right: 8px;
-  font-size: 18px; /* Ukuran ikon */
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
-.social-icon:hover {
-  color: #198fd9; /* Warna hover ikon */
+/* Facebook icon hover - biru solid */
+.footer-social a.facebook-link:hover i {
+  background: #1877f2; /* Biru solid Facebook */
+  transform: scale(1.1);
 }
 
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-info, .footer-social {
-    margin-bottom: 20px;
-  }
+/* Instagram icon hover - pink solid */
+.footer-social a.instagram-link:hover i {
+  background: #e1306c; /* Pink solid Instagram */
+  transform: scale(1.1);
 }
 
-/* Whatsapp */
-/* CSS untuk Logo WhatsApp Mengambang di Kanan Bawah */
+.copyright {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 14px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto 0;
+}
+
+/* WhatsApp Button */
 .whatsapp-logo {
-    position: fixed;  /* Menempatkan logo tetap di layar */
-    bottom: 20px;     /* Jarak dari bawah */
-    right: 20px;      /* Jarak dari kanan */
-    z-index: 1000;    /* Pastikan logo tetap di atas elemen lainnya */
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 999;
+  animation: fadeIn 0.8s ease-out 1s both, float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .whatsapp-icon {
-    width: 60px;       /* Ukuran logo */
-    height: 60px;      /* Ukuran logo */
-    border-radius: 50%; /* Membuat logo berbentuk lingkaran */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
-    transition: transform 0.3s ease; /* Efek transisi saat hover */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 35px rgba(37, 211, 102, 0.6);
+  }
+  100% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
 }
 
 .whatsapp-icon:hover {
-    transform: scale(1.1);  /* Efek zoom saat hover */
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .tentang {
+    padding: 60px 8%;
+  }
+
+  .services-container {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .footer-main-content {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 10px 20px;
+  }
+
+  nav.scrolled {
+    padding: 8px 20px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  nav ul {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    width: 80%;
+    max-width: 300px;
+    height: calc(100vh - 70px);
+    padding: 40px 30px;
+    gap: 30px;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+  }
+
+  nav ul.active {
+    right: 0;
+  }
+
+  nav ul li a {
+    color: #333;
+    font-size: 18px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+
+  /* PERUBAHAN: Tombol tetap putih tanpa garis */
+  nav ul li a.navButton {
+    color: white !important;
+    background: linear-gradient(135deg, #198fd9, #156fa0);
+    border: none;
+    text-align: center;
+    border-radius: 50px;
+    margin-top: 10px;
+  }
+
+  /* PERUBAHAN: Pastikan tidak ada garis underline di mobile */
+  nav ul li a.navButton::after {
+    display: none !important;
+  }
+
+  nav ul li:last-child a {
+    border-bottom: none;
+  }
+
+  .navButton {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .container2 {
+    text-align: center;
+  }
+
+  .container2 h1::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .container2 p {
+    text-align: center;
+  }
+
+  .services-section {
+    padding: 60px 20px;
+  }
+
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .service-card {
+    padding: 30px 20px;
+  }
+
+  .footer-main-content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .footer-info,
+  .footer-social {
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-icon {
+    justify-content: center;
+  }
+
+  .whatsapp-logo {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .whatsapp-icon {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container1 h1 {
+    font-size: 2.2rem;
+    padding: 0 20px;
+  }
+
+  .tentang {
+    padding: 40px 20px;
+  }
+
+  .services-section {
+    padding: 40px 15px;
+  }
+
+  .service-card {
+    padding: 25px 15px;
+  }
+
+  nav ul {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .whatsapp-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .footer-main-content {
+    gap: 30px;
+  }
+}
+
+/* Loading Animation */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #198fd9;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
