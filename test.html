@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT Ziva Global Perkasa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ddd;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animasi masuk */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 8px 5%;
+        }
+
+        nav img {
+            height: 50px;
+            filter: drop-shadow(0px 0px 2px #000000);
+            animation: fadeIn 0.8s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        nav img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style-type: none;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 550;
+            letter-spacing: 1.5px;
+            font-size: 15px;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #009dff;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: #009dff;
+        }
+
+        nav.scrolled ul li a {
+            color: #333;
+        }
+
+        /* PERUBAHAN: Tombol Hubungi Kami tanpa garis underline */
+        .navButton {
+            background: linear-gradient(135deg, #198fd9, #156fa0);
+            color: white !important;
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+        }
+
+        /* PERUBAHAN: Hapus garis underline pada tombol Hubungi Kami */
+        .navButton::after {
+            display: none !important;
+        }
+
+        /* PERUBAHAN: Hover tombol tidak ada efek khusus */
+        .navButton:hover {
+            background: linear-gradient(135deg, #198fd9, #156fa0);
+            transform: none;
+            box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+            color: white !important;
+        }
+
+        /* PERUBAHAN: Pastikan tidak ada garis saat hover */
+        .navButton:hover::after {
+            width: 0 !important;
+        }
+
+        nav.scrolled .navButton {
+            color: white !important;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        nav.scrolled .hamburger span {
+            background: #333;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+            background: #333;
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+            background: #333;
+        }
+
+        /* Beranda Section */
+        .beranda {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80");
+            position: relative;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .container1 {
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .container1 h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #fff, #009dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Tentang Kami Section */
+        .tentang {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 5%;
+            min-height: 50vh;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .container2 {
+            max-width: 1200px;
+            width: 100%;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .container2 h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #198fd9;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .container2 h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #198fd9, #009dff);
+            border-radius: 2px;
+        }
+
+        .container2 p {
+            font-size: clamp(1rem, 1.5vw, 1.1rem);
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+
+        /* Layanan Kami Section */
+        .services-section {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .services-section h2 {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #333;
+            margin-bottom: 60px;
+            font-weight: 600;
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .services-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #198fd9, #009dff);
+            border-radius: 2px;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            justify-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .service-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #198fd9, #009dff);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-card h3 {
+            font-size: clamp(1.5rem, 2vw, 1.8rem);
+            margin-bottom: 20px;
+            color: #198fd9;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            font-size: clamp(0.95rem, 1.5vw, 1rem);
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .service-card .btn {
+            background: linear-gradient(135deg, #198fd9, #156fa0);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+        }
+
+        .service-card .btn:hover {
+            background: linear-gradient(135deg, #156fa0, #198fd9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 143, 217, 0.4);
+        }
+
+        /* Footer - PERUBAHAN: Kontak Kami dan Ikuti Kami benar-benar sejajar */
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 60px 5% 30px;
+            font-family: 'Segoe UI', sans-serif;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .footer-main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info, .footer-social {
+            animation: fadeInUp 0.8s ease-out;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* Membuat kedua bagian sejajar secara horizontal */
+        .footer-info {
+            flex: 1;
+        }
+
+        .footer-social {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-info p, .footer-social p {
+            margin: 12px 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-info p strong, .footer-social p strong {
+            color: #009dff;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-info a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-info a:hover {
+            color: #009dff;
+            transform: translateX(5px);
+        }
+
+        /* PERUBAHAN: Container untuk ikuti kami */
+        .footer-social-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Judul "Ikuti Kami" */
+        .footer-social strong {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* Link Facebook dan Instagram sebagai baris terpisah */
+        .footer-social a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+
+        /* Facebook - baris ke-2 */
+        .footer-social a.facebook-link:hover {
+            color: #1877F2; /* Biru Facebook */
+            transform: translateX(5px);
+        }
+
+        /* Instagram - baris ke-3 */
+        .footer-social a.instagram-link:hover {
+            color: #E1306C; /* Pink Instagram */
+            transform: translateX(5px);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+
+        .social-icon i {
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        /* Facebook icon hover - biru solid */
+        .footer-social a.facebook-link:hover i {
+            background: #1877F2; /* Biru solid Facebook */
+            transform: scale(1.1);
+        }
+
+        /* Instagram icon hover - pink solid */
+        .footer-social a.instagram-link:hover i {
+            background: #E1306C; /* Pink solid Instagram */
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 14px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px auto 0;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-logo {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+            animation: fadeIn 0.8s ease-out 1s both, float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .whatsapp-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 35px rgba(37, 211, 102, 0.6);
+            }
+            100% {
+                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            }
+        }
+
+        .whatsapp-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .tentang {
+                padding: 60px 8%;
+            }
+            
+            .services-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+            }
+            
+            .footer-main-content {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px 20px;
+            }
+            
+            nav.scrolled {
+                padding: 8px 20px;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                width: 80%;
+                max-width: 300px;
+                height: calc(100vh - 70px);
+                padding: 40px 30px;
+                gap: 30px;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li a {
+                color: #333;
+                font-size: 18px;
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                width: 100%;
+            }
+
+            /* PERUBAHAN: Tombol tetap putih tanpa garis */
+            nav ul li a.navButton {
+                color: white !important;
+                background: linear-gradient(135deg, #198fd9, #156fa0);
+                border: none;
+                text-align: center;
+                border-radius: 50px;
+                margin-top: 10px;
+            }
+
+            /* PERUBAHAN: Pastikan tidak ada garis underline di mobile */
+            nav ul li a.navButton::after {
+                display: none !important;
+            }
+
+            nav ul li:last-child a {
+                border-bottom: none;
+            }
+
+            .navButton {
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .container2 {
+                text-align: center;
+            }
+
+            .container2 h1::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .container2 p {
+                text-align: center;
+            }
+
+            .services-section {
+                padding: 60px 20px;
+            }
+
+            .services-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .service-card {
+                padding: 30px 20px;
+            }
+
+            .footer-main-content {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .footer-info, .footer-social {
+                max-width: 100%;
+                text-align: center;
+                align-items: center;
+            }
+
+            .footer-social {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-icon {
+                justify-content: center;
+            }
+
+            .whatsapp-logo {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .whatsapp-icon {
+                width: 55px;
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container1 h1 {
+                font-size: 2.2rem;
+                padding: 0 20px;
+            }
+
+            .tentang {
+                padding: 40px 20px;
+            }
+
+            .services-section {
+                padding: 40px 15px;
+            }
+
+            .service-card {
+                padding: 25px 15px;
+            }
+
+            nav ul {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .footer-main-content {
+                gap: 30px;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #198fd9;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <nav>
+            <img src="img/logo.png" alt="Ziva Global Perkasa Logo">
+            
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul id="navMenu">
+                <li><a href="#home">BERANDA</a></li>
+                <li><a href="#about">TENTANG KAMI</a></li>
+                <li><a href="#services">LAYANAN KAMI</a></li>
+                <li><a class="navButton" href="#contact">HUBUNGI KAMI</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="beranda" id="home">
+        <div class="container1">
+            <h1>ZIVA GLOBAL PERKASA</h1>
+            <p style="font-size: 1.5rem; margin-top: 20px;">Solusi Terpercaya untuk Kebutuhan Industri Anda</p>
+        </div>
+    </section>
+
+    <section class="tentang" id="about">
+        <div class="container2">
+            <h1>Tentang Kami</h1>
+            <p>PT Ziva Global Perkasa adalah perusahaan yang menyediakan barang dan jasa berkualitas untuk memenuhi kebutuhan industri, dengan fokus pada solusi inovatif dan kepuasan pelanggan. Kami berkomitmen untuk memberikan produk dan layanan yang efisien dan sesuai dengan standar industri, didukung oleh tim profesional yang berpengalaman dan selalu berinovasi untuk mencapai hasil terbaik.</p>
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <h2>Layanan Kami</h2>
+        <div class="services-container">
+            <!-- Layanan 1 -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pengadaan Barang">
+                <h3>Pengadaan Barang</h3>
+                <p>Kami menyediakan pengadaan barang berkualitas tinggi untuk berbagai industri, dengan harga yang kompetitif dan pengiriman tepat waktu.</p>
+                <a href="#" class="btn">Pelajari Lebih Lanjut</a>
+            </div>
+
+            <!-- Layanan 2 -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pengadaan Jasa">
+                <h3>Pengadaan Jasa</h3>
+                <p>Kami juga mengkhususkan diri dalam pengadaan jasa profesional, mulai dari konsultasi hingga implementasi solusi khusus untuk kebutuhan Anda.</p>
+                <a href="#" class="btn">Pelajari Lebih Lanjut</a>
+            </div>
+
+            <!-- Layanan 3 -->
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Logistik & Pengiriman">
+                <h3>Logistik & Pengiriman</h3>
+                <p>Dengan jaringan yang luas, kami menyediakan layanan logistik dan pengiriman untuk memastikan barang sampai dengan aman dan tepat waktu.</p>
+                <a href="#" class="btn">Pelajari Lebih Lanjut</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-main-content">
+            <div class="footer-info">
+                <p><strong>Kontak Kami:</strong></p>
+                <p>Email: <a href="mailto:info@zivaglobalperkasa.com">info@zivaglobalperkasa.com</a></p>
+                <p>Alamat: Jl. Contoh Alamat No.123, Jakarta, Indonesia</p>
+            </div>
+            <div class="footer-social">
+                <strong>Ikuti Kami:</strong>
+                <div class="footer-social-container">
+                    <a href="https://facebook.com" target="_blank" class="social-icon facebook-link">
+                        <i class="bi bi-facebook"></i> Facebook
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="social-icon instagram-link">
+                        <i class="bi bi-instagram"></i> Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 PT Ziva Global Perkasa. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Logo WhatsApp Mengambang -->
+    <a href="https://wa.me/6285860205916" target="_blank" class="whatsapp-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" alt="WhatsApp" class="whatsapp-icon">
+    </a>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 800);
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.getElementById("hamburger");
+        const navMenu = document.getElementById("navMenu");
+
+        hamburger.addEventListener("click", () => {
+            const isOpen = hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active", isOpen);
+            hamburger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            
+            // Prevent scrolling when menu is open
+            document.body.style.overflow = isOpen ? "hidden" : "auto";
+        });
+
+        // Close menu when clicking a link
+        navMenu.querySelectorAll("a").forEach((a) => {
+            a.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                hamburger.setAttribute("aria-expanded", "false");
+                document.body.style.overflow = "auto";
+                
+                // Smooth scroll to section
+                const href = a.getAttribute('href');
+                if (href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener("click", (e) => {
+            const nav = document.querySelector("nav");
+            if (!nav.contains(e.target)) {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                hamburger.setAttribute("aria-expanded", "false");
+                document.body.style.overflow = "auto";
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener("scroll", () => {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+            
+            // Parallax effect for hero section
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.beranda');
+            if (hero) {
+                hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+            }
+        });
+
+        // Close mobile menu on resize
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 768) {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+                hamburger.setAttribute("aria-expanded", "false");
+                document.body.style.overflow = "auto";
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.service-card, .container2, .footer-info, .footer-social').forEach((el) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

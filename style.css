@@ -1,0 +1,377 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ddd;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navbar (kode kamu) */
+nav {
+  background-color: rgba(0, 0, 0, 0.068);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000; /* memastikan navbar berada di atas konten lainnya */
+}
+
+nav img {
+  padding: 5px;
+  height: 50px;
+  filter: drop-shadow(0px 0px 2px #000000);
+}
+
+nav ul {
+  display: flex;
+  gap: 40px;
+  list-style-type: none;
+  align-items: center;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 550;
+  letter-spacing: 2px;
+}
+
+nav ul li a:hover {
+  color: #009dff;
+  transition: 0.3s;
+}
+
+nav.scrolled ul li:nth-child(1) a,
+nav.scrolled ul li:nth-child(2) a,
+nav.scrolled ul li:nth-child(3) a {
+  color: black;
+  transition: 1s;
+}
+
+nav.scrolled {
+  background-color: white;
+  transition: 1s;
+}
+
+.navButton {
+  background-color: #198fd9;
+  color: white;
+  padding: 15px;
+}
+
+.navButton:hover {
+  background-color: black;
+  color: #198fd9;
+  transition: 0.3s;
+}
+
+/* =========================
+   TAMBAHAN: HAMBURGER (1 MENU SAJA, TIDAK DUPLIKAT)
+   ========================= */
+
+.hamburger {
+  display: none; /* desktop: hidden */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: #000;
+  margin: 5px 0;
+  transition: 0.25s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  nav {
+    justify-content: space-between; /* logo kiri, hamburger kanan */
+    padding: 10px 14px;
+    background-color: white;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  /* UL yang sama dipakai jadi dropdown */
+  nav ul {
+    display: none; /* default: hidden */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 12px 14px;
+    border-top: 1px solid #e5e5e5;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch; /* biar link full lebar */
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 10px;
+  }
+
+  /* tombol hubungi kami biar rapih di mobile */
+  nav ul li a.navButton {
+    text-align: center;
+    padding: 12px;
+  }
+  .services-section h2 {
+    font-size: 28px;
+  }
+
+  .service-card h3 {
+    font-size: 22px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+  }
+}
+
+/* Beranda */
+.beranda {
+  background-image: url("img/beranda.jpg");
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 400px 14px rgba(0, 0, 0, 1) inset;
+}
+
+.container1 {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: xx-large;
+}
+
+/* tentang kami */
+.tentang {
+  font-family: Arial, Helvetica, sans-serif;
+
+  height: 35vh;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 550px;
+}
+
+.container2 p {
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* layanan kami */
+.services-section {
+  padding: 60px 20px;
+}
+
+.services-section h2 {
+  text-align: center;
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+/* Kartu Layanan */
+.service-card {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #198fd9;
+  font-weight: 600;
+}
+
+.service-card p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.service-card .btn {
+  background-color: #198fd9;
+  color: white;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.service-card .btn:hover {
+  background-color: #156fa0;
+}
+
+/* Gambar atau Ikon untuk Layanan */
+.service-card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+  .services-section h2 {
+    font-size: 28px;
+  }
+
+  .service-card h3 {
+    font-size: 22px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+  }
+}
+
+/* Footer */
+footer {
+  background-color: #333; /* Warna latar belakang footer */
+  color: white;
+  padding: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Mengatur elemen tetap rata atas */
+  padding: 0 20px;
+}
+
+.footer-info, .footer-social {
+  display: flex;
+  flex-direction: column; /* Mengatur elemen vertikal */
+  justify-content: flex-start;
+}
+
+.footer-info p, .footer-social p {
+  margin: 5px 0; /* Mengurangi margin atas-bawah untuk mengurangi gap */
+}
+
+.footer-info a, .footer-social a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-info a:hover, .footer-social a:hover {
+  color: #198fd9; /* Warna hover untuk link */
+}
+
+.footer-social {
+  text-align: left;
+  margin-left: 20px; /* Memberikan jarak antara "Ikuti Kami" dan konten lain */
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  color: white;
+  font-size: 16px;
+}
+
+.social-icon i {
+  margin-right: 8px;
+  font-size: 18px; /* Ukuran ikon */
+}
+
+.social-icon:hover {
+  color: #198fd9; /* Warna hover ikon */
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-info, .footer-social {
+    margin-bottom: 20px;
+  }
+}
+
+/* Whatsapp */
+/* CSS untuk Logo WhatsApp Mengambang di Kanan Bawah */
+.whatsapp-logo {
+    position: fixed;  /* Menempatkan logo tetap di layar */
+    bottom: 20px;     /* Jarak dari bawah */
+    right: 20px;      /* Jarak dari kanan */
+    z-index: 1000;    /* Pastikan logo tetap di atas elemen lainnya */
+}
+
+.whatsapp-icon {
+    width: 60px;       /* Ukuran logo */
+    height: 60px;      /* Ukuran logo */
+    border-radius: 50%; /* Membuat logo berbentuk lingkaran */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+    transition: transform 0.3s ease; /* Efek transisi saat hover */
+}
+
+.whatsapp-icon:hover {
+    transform: scale(1.1);  /* Efek zoom saat hover */
+}
