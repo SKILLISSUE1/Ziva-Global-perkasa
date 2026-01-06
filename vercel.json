@@ -4,5 +4,16 @@
   "routes": [
     { "src": "^/$", "dest": "/index.html" },
     { "src": "/(.*)", "dest": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "x-vercel-disable-toolbar",
+          "value": "1"
+        }
+      ]
+    }
   ]
 }
