@@ -775,6 +775,14 @@ footer {
   .footer-main-content {
     gap: 30px;
   }
+
+  #about {
+    scroll-margin-top:30px;
+  }
+
+  #services {
+    scroll-margin-top:40px;
+  }
 }
 
 /* Loading Animation */
