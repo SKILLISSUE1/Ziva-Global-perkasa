@@ -227,14 +227,31 @@ nav.scrolled .hamburger span {
 }
 
 .container1 h1 {
+  /* FONT */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+
+  /* SPACING */
   margin-bottom: 20px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  background: #012787;
-  filter: drop-shadow(0 0 0.75rem gray);
+  line-height: 1.2;
+
+  /* GRADIENT TEXT */
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* NEON (iOS SAFE) */
+  text-shadow:
+    0 0 5px rgba(59, 130, 246, 0.6),
+    0 0 15px rgba(59, 130, 246, 0.6),
+    0 0 30px rgba(59, 130, 246, 0.4);
+
+  /* ANIMATION */
+  animation: neonPulse 2.5s ease-in-out infinite alternate;
 }
 
 /* Tentang Kami Section */
