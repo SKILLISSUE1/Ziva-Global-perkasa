@@ -427,7 +427,7 @@ nav.scrolled .hamburger span {
   box-shadow: 0 6px 20px rgba(25, 143, 217, 0.4);
 }
 
-/* Footer - PERUBAHAN: Kontak Kami dan Ikuti Kami benar-benar sejajar */
+/* Footer */
 footer {
   background: linear-gradient(135deg, #2c3e50, #34495e);
   color: white;
@@ -454,7 +454,15 @@ footer {
   min-width: 300px;
 }
 
-/* Membuat kedua bagian sejajar secara horizontal */
+.footer-info p strong,
+.footer-social p strong {
+  color: #009dff;
+  font-size: 18px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* FOOTER DENGAN TITIK-TITIK SEJAJAR KE KIRI */
 .footer-info {
   flex: 1;
 }
@@ -465,33 +473,52 @@ footer {
   flex-direction: column;
 }
 
-.footer-info p,
-.footer-social p {
-  margin: 12px 0;
-  font-size: 15px;
-  line-height: 1.6;
+/* Container untuk setiap baris dengan titik-titik */
+.footer-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
 }
 
-.footer-info p strong,
-.footer-social p strong {
-  color: #009dff;
-  font-size: 18px;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.footer-info a {
-  color: #ddd;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
+/* Setiap item kontak menggunakan grid untuk sejajar */
+.footer-contact-item {
+  display: grid;
+  grid-template-columns: 100px 10px 1fr;
+  align-items: flex-start;
   gap: 10px;
 }
 
-.footer-info a:hover {
+/* Label kontak (Email, Telepon, Alamat) - SEJAJAR KIRI */
+.contact-label {
+  font-weight: 600;
+  color: #ddd;
+  text-align: left; /* INI YANG DIUBAH */
+  white-space: nowrap;
+}
+
+/* Titik-titik pemisah */
+.contact-dots {
   color: #009dff;
-  transform: translateX(5px);
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Nilai kontak (isi email, nomor, alamat) */
+.contact-value {
+  color: #ddd;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.contact-value a {
+  color: #ddd;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-value a:hover {
+  color: #009dff;
 }
 
 /* PERUBAHAN: Container untuk ikuti kami */
@@ -499,12 +526,8 @@ footer {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
-
-/* Judul "Ikuti Kami" */
-.footer-social strong {
-  display: block;
-  margin-bottom: 15px;
+  gap: 15px;
+  margin-top: 10px;
 }
 
 /* Link Facebook dan Instagram sebagai baris terpisah */
@@ -515,7 +538,6 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
 }
 
 /* Facebook - baris ke-2 */
@@ -534,7 +556,6 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
 }
 
 .social-icon i {
@@ -728,8 +749,8 @@ footer {
 
   .footer-main-content {
     flex-direction: column;
-    align-items: flex-start;   /* ⬅ ke kiri */
-    text-align: left;          /* ⬅ teks kiri */
+    align-items: flex-start;
+    text-align: left;
     gap: 30px;
   }
 
@@ -752,6 +773,11 @@ footer {
 
   .social-icon {
     justify-content: flex-start;
+  }
+
+  /* Responsive untuk layout titik-titik di mobile */
+  .footer-contact-item {
+    grid-template-columns: 80px 10px 1fr;
   }
 
   .whatsapp-logo {
@@ -795,6 +821,16 @@ footer {
 
   .footer-main-content {
     gap: 30px;
+  }
+
+  /* Responsive untuk layout titik-titik di mobile kecil */
+  .footer-contact-item {
+    grid-template-columns: 70px 10px 1fr;
+    gap: 8px;
+  }
+
+  .contact-label {
+    font-size: 14px;
   }
 
   #about {
@@ -841,5 +877,21 @@ footer {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Tambahkan animasi neonPulse jika belum ada */
+@keyframes neonPulse {
+  from {
+    text-shadow:
+      0 0 5px rgba(59, 130, 246, 0.6),
+      0 0 15px rgba(59, 130, 246, 0.6),
+      0 0 30px rgba(59, 130, 246, 0.4);
+  }
+  to {
+    text-shadow:
+      0 0 10px rgba(59, 130, 246, 0.8),
+      0 0 25px rgba(59, 130, 246, 0.8),
+      0 0 40px rgba(59, 130, 246, 0.6);
   }
 }
