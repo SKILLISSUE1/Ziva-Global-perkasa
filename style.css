@@ -324,7 +324,7 @@
         text-align: center;
         font-size: clamp(2rem, 4vw, 3rem);
         color: #333;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
         font-weight: 600;
         position: relative;
         animation: fadeInUp 1s ease-out;
@@ -342,9 +342,47 @@
         border-radius: 2px;
       }
 
+      /* Filter Kategori */
+      .category-filters {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 60px;
+        animation: fadeInUp 1s ease-out 0.3s both;
+      }
+
+      .filter-btn {
+        background: white;
+        border: 2px solid #198fd9;
+        color: #198fd9;
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        min-width: 120px;
+        text-align: center;
+      }
+
+      .filter-btn:hover {
+        background: rgba(25, 143, 217, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .filter-btn.active {
+        background: linear-gradient(135deg, #198fd9, #156fa0);
+        color: white;
+        border-color: #198fd9;
+        box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+      }
+
+      /* Services Container */
       .services-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 40px;
         justify-items: center;
         max-width: 1200px;
@@ -353,7 +391,6 @@
 
       .service-card {
         background-color: #ffffff;
-        padding: 40px 30px;
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -362,14 +399,9 @@
         position: relative;
         animation: fadeInUp 0.8s ease-out;
         border: 1px solid rgba(0, 0, 0, 0.05);
-      }
-
-      .service-card:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      .service-card:nth-child(3) {
-        animation-delay: 0.4s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
       .service-card::before {
@@ -394,12 +426,22 @@
         transform: scaleX(1);
       }
 
-      .service-card img {
+      .service-card.hidden {
+        display: none;
+        animation: none;
+      }
+
+      .service-image {
         width: 100%;
         height: 200px;
+        overflow: hidden;
+        margin: 0;
+      }
+
+      .service-card img {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        border-radius: 8px;
-        margin-bottom: 25px;
         transition: transform 0.4s ease;
       }
 
@@ -407,18 +449,26 @@
         transform: scale(1.05);
       }
 
+      .service-content {
+        padding: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
       .service-card h3 {
-        font-size: clamp(1.5rem, 2vw, 1.8rem);
-        margin-bottom: 20px;
+        font-size: clamp(1.3rem, 2vw, 1.5rem);
+        margin-bottom: 15px;
         color: #198fd9;
         font-weight: 600;
       }
 
       .service-card p {
-        font-size: clamp(0.95rem, 1.5vw, 1rem);
+        font-size: clamp(0.9rem, 1.5vw, 1rem);
         color: #666;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         line-height: 1.6;
+        flex-grow: 1;
       }
 
       .service-card .btn {
@@ -433,6 +483,7 @@
         border: none;
         cursor: pointer;
         box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+        margin-top: auto;
       }
 
       .service-card .btn:hover {
@@ -642,6 +693,18 @@
       }
 
       /* Responsive Styles */
+      @media (max-width: 1200px) {
+        .services-container {
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+        
+        .filter-btn {
+          padding: 10px 20px;
+          min-width: 110px;
+          font-size: 13px;
+        }
+      }
+
       @media (max-width: 1024px) {
         nav ul {
           gap: 25px;
@@ -652,12 +715,17 @@
         }
 
         .services-container {
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           gap: 30px;
         }
 
         .footer-main-content {
           gap: 40px;
+        }
+        
+        .category-filters {
+          gap: 12px;
+          margin-bottom: 50px;
         }
       }
 
@@ -671,8 +739,19 @@
         nav ul {
           gap: 20px;
         }
+        
+        .category-filters {
+          gap: 10px;
+        }
+        
+        .filter-btn {
+          padding: 8px 18px;
+          min-width: 100px;
+          font-size: 12px;
+        }
       }
 
+      /* Tablet: 2 cards per row pada 768px */
       @media (max-width: 768px) {
         nav {
           padding: 10px 20px;
@@ -762,13 +841,38 @@
           padding: 60px 20px;
         }
 
+        /* 2 cards per row pada tablet */
         .services-container {
-          grid-template-columns: 1fr;
-          gap: 30px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 25px;
         }
 
         .service-card {
-          padding: 30px 20px;
+          padding: 0;
+        }
+        
+        .service-image {
+          height: 180px;
+        }
+        
+        .service-content {
+          padding: 20px;
+        }
+
+        .category-filters {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 8px;
+          margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+          padding: 8px 16px;
+          min-width: auto;
+          font-size: 11px;
+          flex: 0 0 auto;
+          min-width: 100px;
+          max-width: none;
         }
 
         .footer-main-content {
@@ -814,6 +918,14 @@
         }
       }
 
+      /* Mobile: 1 card per row dan filter kategori dengan single selection */
+      @media (max-width: 600px) {
+        .services-container {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+      }
+
       @media (max-width: 480px) {
         .container1 h1 {
           font-size: 2.2rem;
@@ -827,9 +939,13 @@
         .services-section {
           padding: 40px 15px;
         }
-
-        .service-card {
-          padding: 25px 15px;
+        
+        .service-image {
+          height: 160px;
+        }
+        
+        .service-content {
+          padding: 15px;
         }
 
         nav ul {
@@ -861,6 +977,46 @@
 
         #services {
           scroll-margin-top: 30px;
+        }
+        
+        /* Mobile filter dengan single selection */
+        .category-filters {
+          gap: 8px;
+          justify-content: center;
+        }
+        
+        .filter-btn {
+          padding: 10px 18px;
+          font-size: 12px;
+          min-width: 85px;
+          flex: 0 0 auto;
+        }
+        
+        /* Hanya satu tombol yang bisa active pada mobile */
+        .filter-btn.active {
+          background: linear-gradient(135deg, #198fd9, #156fa0);
+          color: white;
+          border-color: #198fd9;
+          box-shadow: 0 4px 15px rgba(25, 143, 217, 0.3);
+        }
+        
+        /* Non-active buttons pada mobile */
+        .filter-btn:not(.active) {
+          background: white;
+          border: 2px solid #198fd9;
+          color: #198fd9;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .filter-btn {
+          padding: 8px 14px;
+          font-size: 11px;
+          min-width: 75px;
+        }
+        
+        .category-filters {
+          gap: 6px;
         }
       }
 
@@ -916,4 +1072,4 @@
             0 0 40px rgba(59, 130, 246, 0.6);
         }
       }
-  
+ 
